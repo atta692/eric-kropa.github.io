@@ -6,7 +6,10 @@ const multer = require('multer');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+
+// Use Render's provided port or default to 3000 for local dev
+const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL || `https://eric-kropa-github-io.onrender.com`; // Replace with your Render URL if needed
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -32,6 +35,11 @@ function saveArticles() {
   fs.writeFileSync(FILE_PATH, JSON.stringify(articles, null, 2));
 }
 
+// GET homepage
+app.get('/', (req, res) => {
+  res.send('✅ Server is running!');
+});
+
 // GET all articles
 app.get('/articles', (req, res) => {
   res.json(articles);
@@ -51,7 +59,7 @@ app.get('/articles/:id', (req, res) => {
 // POST new article
 app.post('/articles', upload.single('image'), (req, res) => {
   const { title, body, category } = req.body;
-  const image = req.file ? `http://localhost:${PORT}/uploads/${req.file.filename}` : '';
+  const image = req.file ? `${BASE_URL}/uploads/${req.file.filename}` : '';
   const newArticle = { id: Date.now(), title, body, category, image };
   articles.push(newArticle);
   saveArticles();
@@ -70,6 +78,8 @@ app.delete('/articles/:id', (req, res) => {
   saveArticles();
   res.json({ message: 'Article deleted', article: deleted });
 });
+
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
