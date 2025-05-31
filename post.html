@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+    input, textarea, select, button {
+      display: block; width: 100%; margin-bottom: 1rem; padding: 0.5rem;
+    }
+    button { background: #333; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Post New Article</h1>
+  <input id="title" placeholder="Title" />
+  <input type="file" id="imageFile" accept="image/*" />
+  <textarea id="body" placeholder="Body"></textarea>
+  <select id="category">
+    <option value="News">News</option>
+    <option value="Sports">Sports</option>
+    <option value="Entertainment">Entertainment</option>
+    <option value="Politics">Politics</option>
+  </select>
+  <button onclick="postArticle()">Post Article</button>
+
+  <script>
+    function postArticle() {
+      const title = document.getElementById('title').value;
+      const imageFile = document.getElementById('imageFile').files[0];
+      const body = document.getElementById('body').value;
+      const category = document.getElementById('category').value;
+
+      if (!title || !body || !category) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('body', body);
+      formData.append('category', category);
+      if (imageFile) {
+        formData.append('image', imageFile);
+      }
+
+      fetch('http://localhost:3000/articles', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to post article');
+        return res.json();
+      })
+      .then(data => {
+        alert('Article posted!');
+        document.getElementById('title').value = '';
+        document.getElementById('body').value = '';
+        document.getElementById('imageFile').value = null; // FIXED THIS LINE
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert('Error posting article.');
+      });
+    }
+  const password = prompt("Enter admin password:");
+  if (password !== "admin123") {
+    alert("Unauthorized!");
+    window.location.href = "index.html"; // redirect
+  }
+
+  </script>
+</body>
+</html>
