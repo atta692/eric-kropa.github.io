@@ -59,7 +59,7 @@ app.get('/articles/:id', (req, res) => {
 // POST new article
 app.post('/articles', upload.single('image'), (req, res) => {
   const { title, body, category } = req.body;
-  const image = req.file ? `${BASE_URL}/uploads/${req.file.filename}` : '';
+  const image = req.file ? `https://eric-kropa-github-io.onrender.com/uploads/${req.file.filename}` : '';
   const newArticle = { id: Date.now(), title, body, category, image };
   articles.push(newArticle);
   saveArticles();
