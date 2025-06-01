@@ -63,6 +63,9 @@
         alert('Error posting articles.');
       });
     }
+    // hook the function to the button click
+    document.getElementbyid('postBtn').addEventlistener('click',postArticle);
+    
   const password = prompt("Enter admin password:");
   if (password !== "admin123") {
     alert("Unauthorized!");
