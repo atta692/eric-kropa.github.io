@@ -4,13 +4,13 @@
     "title": "creator",
     "body": "kropa eric is the creator of the website\r\nhe is a student of okuapemman school",
     "category": "News",
-    "image": "http://localhost:3000/uploads/1748431721728-IMG-20240710-WA0001.jpg"
+    "image": "https://localhost:3000/uploads/1748431721728-IMG-20240710-WA0001.jpg"
   },
   {
     "id": 1748431929153,
     "title": "computer",
     "body": "computer",
     "category": "News",
-    "image": "http://localhost:3000/uploads/1748431929136-IMG_20240710_112916.jpg"
+    "image": "https://localhost:3000/uploads/1748431929136-IMG_20240710_112916.jpg"
   }
 ]
