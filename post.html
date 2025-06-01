@@ -22,7 +22,7 @@
     <option value="Entertainment">Entertainment</option>
     <option value="Politics">Politics</option>
   </select>
-  <button id="postBtn">Post Article</button>
+  <button onclick="postArticle()">Post Article</button>
 
   <script>
     function postArticle() {
@@ -45,9 +45,8 @@
       }
 
       fetch('https://eric-kropa-github-io.onrender.com/articles', {
-  method: 'POST',
-  body: formData
-})
+        method: 'POST',
+        body: formData
       })
       .then(res => {
         if (!res.ok) throw new Error('Failed to post article');
@@ -57,7 +56,7 @@
         alert('Article posted!');
         document.getElementById('title').value = '';
         document.getElementById('body').value = '';
-        document.getElementById('imageFile').value = null;
+        document.getElementById('imageFile').value = '';
       })
       .catch(err => {
         console.error('Error:', err);
@@ -65,9 +64,7 @@
       });
     }
 
-    // Hook the function to the button click
-    document.getElementById('postBtn').addEventListener('click', postArticle);
-
+    // Simple password check
     const password = prompt("Enter admin password:");
     if (password !== "admin123") {
       alert("Unauthorized!");
