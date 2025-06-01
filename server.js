@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/uploads', express.static(UPLOAD_DIR));
 
-const FILE_PATH = 'articles.json';
+const FILE_PATH = '/data/articles.json';
 
 // Setup multer for image uploads
 const storage = multer.diskStorage({
