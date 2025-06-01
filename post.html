@@ -25,7 +25,7 @@
   <button id="postBtn">Post Article</button>
 
   <script>
-    function postArticles() {
+    function postArticle() {
       const title = document.getElementById('title').value;
       const imageFile = document.getElementById('imageFile').files[0];
       const body = document.getElementById('body').value;
@@ -49,29 +49,29 @@
         body: formData
       })
       .then(res => {
-        if (!res.ok) throw new Error('Failed to post articles');
+        if (!res.ok) throw new Error('Failed to post article');
         return res.json();
       })
       .then(data => {
-        alert('Articles posted!');
+        alert('Article posted!');
         document.getElementById('title').value = '';
         document.getElementById('body').value = '';
-        document.getElementById('imageFile').value = null; // FIXED THIS LINE
+        document.getElementById('imageFile').value = null;
       })
       .catch(err => {
         console.error('Error:', err);
-        alert('Error posting articles.');
+        alert('Error posting article.');
       });
     }
-    // hook the function to the button click
-    document.getElementbyid('postBtn').addEventlistener('click',postArticle);
-    
-  const password = prompt("Enter admin password:");
-  if (password !== "admin123") {
-    alert("Unauthorized!");
-    window.location.href = "index.html"; // redirect
-  }
 
+    // Hook the function to the button click
+    document.getElementById('postBtn').addEventListener('click', postArticle);
+
+    const password = prompt("Enter admin password:");
+    if (password !== "admin123") {
+      alert("Unauthorized!");
+      window.location.href = "index.html";
+    }
   </script>
 </body>
 </html>
