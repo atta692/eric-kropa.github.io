@@ -45,8 +45,9 @@
       }
 
       fetch('https://eric-kropa-github-io.onrender.com/articles', {
-        method: 'POST',
-        body: formData
+  method: 'POST',
+  body: formData
+})
       })
       .then(res => {
         if (!res.ok) throw new Error('Failed to post article');
