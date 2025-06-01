@@ -4,7 +4,12 @@
   <meta charset="UTF-8" />
   <title>Delete Articles</title>
   <style>
-    body { font-family: sans-serif; padding: 2rem; max-width: 700px; margin: auto; }
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
     .article {
       border: 1px solid #ccc;
       padding: 1rem;
@@ -23,34 +28,49 @@
       padding: 0.5rem 1rem;
       cursor: pointer;
       border-radius: 4px;
+      display: none; /* hidden until image is broken */
     }
   </style>
 </head>
 <body>
-  <h1>Delete Articles</h1>
+  <h1>Delete Articles With Broken Images</h1>
   <div id="articlesContainer">Loading articles...</div>
 
   <script>
+    const API_URL = 'https://eric-kropa-github-io.onrender.com/articles';
+
     async function fetchArticles() {
       try {
-        const res = await fetch('http://eric-kropa-github-io.onrender.com/articles', { cache: 'no-store' });
+        const res = await fetch(API_URL, { cache: 'no-store' });
         const data = await res.json();
         const container = document.getElementById('articlesContainer');
         container.innerHTML = '';
 
         data.forEach(article => {
-          // Skip if article is invalid
           if (!article || !article.id || !article.title) return;
 
           const div = document.createElement('div');
           div.className = 'article';
+
+          const img = document.createElement('img');
+          img.src = article.image;
+          img.alt = article.title;
+          img.onerror = () => {
+            btn.style.display = 'inline-block'; // show delete button if image is broken
+            img.style.display = 'none';
+          };
+
+          const btn = document.createElement('button');
+          btn.textContent = 'Delete';
+          btn.onclick = () => deleteArticle(article.id);
+
           div.innerHTML = `
             <strong>${article.title}</strong>
-            <img src="${article.image}" alt="${article.title}" />
             <p>${article.body}</p>
             <p><em>${article.category}</em></p>
-            <button onclick="deleteArticle(${article.id})">Delete</button>
           `;
+          div.appendChild(img);
+          div.appendChild(btn);
           container.appendChild(div);
         });
       } catch (err) {
@@ -61,25 +81,25 @@
 
     async function deleteArticle(id) {
       try {
-        const res = await fetch(`http://localhost:3000/articles/${id}`, {
+        const res = await fetch(`${API_URL}/${id}`, {
           method: 'DELETE'
         });
-
         if (!res.ok) throw new Error('Delete failed');
         alert('Article deleted.');
-        fetchArticles();
+        fetchArticles(); // reload
       } catch (err) {
         console.error('Error deleting article:', err);
         alert('Failed to delete article.');
       }
     }
 
-    document.addEventListener('DOMContentLoaded', fetchArticles);
     const password = prompt("Enter admin password:");
-  if (password !== "admin123") {
-    alert("Unauthorized!");
-    window.location.href = "index.html"; // redirect
-  }
+    if (password !== "admin123") {
+      alert("Unauthorized!");
+      window.location.href = "index.html";
+    } else {
+      document.addEventListener('DOMContentLoaded', fetchArticles);
+    }
   </script>
 </body>
 </html>
