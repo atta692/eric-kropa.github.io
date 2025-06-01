@@ -22,10 +22,10 @@
     <option value="Entertainment">Entertainment</option>
     <option value="Politics">Politics</option>
   </select>
-  <button onclick="postArticle()">Post Article</button>
+  <button onclick="postArticle()">Post Articles</button>
 
   <script>
-    function postArticle() {
+    function postArticles() {
       const title = document.getElementById('title').value;
       const imageFile = document.getElementById('imageFile').files[0];
       const body = document.getElementById('body').value;
@@ -49,18 +49,18 @@
         body: formData
       })
       .then(res => {
-        if (!res.ok) throw new Error('Failed to post article');
+        if (!res.ok) throw new Error('Failed to post articles');
         return res.json();
       })
       .then(data => {
-        alert('Article posted!');
+        alert('Articles posted!');
         document.getElementById('title').value = '';
         document.getElementById('body').value = '';
         document.getElementById('imageFile').value = null; // FIXED THIS LINE
       })
       .catch(err => {
         console.error('Error:', err);
-        alert('Error posting article.');
+        alert('Error posting articles.');
       });
     }
   const password = prompt("Enter admin password:");
