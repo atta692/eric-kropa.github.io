@@ -60,12 +60,7 @@ app.get('/articles/:id', (req, res) => {
 // POST new article
 app.post('/articles', upload.single('image'), (req, res) => {
   const { title, body, category } = req.body;
-const protocol = req.protocol === 'http' ? 'http' : 'https';
-const host = req.get('host');
-const image = req.file ? `${protocol}://${host}/uploads/${req.file.filename}` : '';
-  const newArticle = { id: Date.now(), title, body, category, image };
-  articles.push(newArticle);
-  saveArticles();
+const image = req.file ? `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}` : '';
   res.json({ message: 'Article posted!', article: newArticle });
 });
 
