@@ -5,214 +5,168 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EK NEWS</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: white;
-    }
+   /* Reset default spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    header {
-      background: #2e7d32;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
-    }
+/* Body and page base */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px;
+  line-height: 1.6;
+}
 
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      background: #388e3c;
-      padding: 10px;
-    }
+/* Container to center and limit max width */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
 
-    nav button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+/* Header logo styling */
+header {
+  background-color: #2e7d32; /* Green */
+  padding: 20px 0;
+  text-align: center;
+}
 
-    nav button:hover {
-      text-decoration: underline;
-    }
+header img.logo {
+  max-width: 180px;
+  width: 100%;
+  height: auto;
+}
 
-    .section {
-      padding: 20px;
-      display: none;
-    }
+/* Search box */
+.search-bar {
+  margin: 15px auto;
+  max-width: 500px;
+  padding: 10px;
+  border: 2px solid #81c784;
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+  font-size: 16px;
+}
 
-    .active {
-      display: block;
-    }
+/* Navigation menu */
+nav {
+  background-color: #4caf50;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 0;
+}
 
-    .articles {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
 
-    .article {
-      position: relative;
-      width: 220px;
-      height: 180px;
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: o o 4px #17c01d;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+nav a:hover {
+  background-color: #388e3c;
+  border-radius: 5px;
+}
 
-    .article:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
-    }
+/* Section title */
+h2 {
+  font-size: 24px;
+  margin: 20px 0 10px;
+  padding-left: 10px;
+}
 
-    .article img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .article-info {
-      position: absolute;
-      bottom: 0;
-      background: rgba(225, 225, 225, 0.9);
-      width: 100%;
-      padding: 4px 6px;
-      box-sizing: border-box;
+/* Article card styles */
+.article {
+  background: #f9f9f9;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
+.article img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
 
-    }
-    .article-info h3 {
-      margin: 2px 0;
-      font-size: 14px;
-      color: #2e7d32;
-    }
-    .article-info p {
-      font-size: 12px;
-      color: #444;
-      margin: 0;
-    }
+.article h3 {
+  margin: 10px 0 5px;
+  font-size: 20px;
+}
 
-    .article h3 {
-      margin: 4px 0;
-      font-size: 14px;
-      color: #2e7d32;
-    }
+.article p {
+  font-size: 16px;
+  color: #333;
+}
 
-    .article p {
-      font-size: 12px;
-      color: #444;
-      margin: 4px 0;
-    }
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  header img.logo {
+    max-width: 140px;
+  }
 
-    .search-bar {
-      text-align: center;
-      padding: 10px;
-      background: #e8f5e9;
-      position: relative;
-    }
+  nav a {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
 
-    #searchInput {
-      width: 80%;
-      padding: 8px;
-      font-size: 16px;
-      border: 1px solid #81c784;
-      border-radius: 4px;
-    }
+  .search-bar {
+    font-size: 14px;
+  }
 
-    #searchResults {
-      max-height: 200px;
-      overflow-y: auto;
-      background: white;
-      border: 1px solid #ccc;
-      width: 80%;
-      margin: auto;
-      display: none;
-      position: absolute;
-      left: 10%;
-      z-index: 999;
-    }
+  h2 {
+    font-size: 20px;
+  }
 
-    #searchResults div {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px;
-      cursor: pointer;
-    }
+  .article h3 {
+    font-size: 18px;
+  }
 
-    #searchResults div img {
-      width: 50px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
+  .article p {
+    font-size: 15px;
+  }
+}
 
-    #searchResults div:hover {
-      background: #f1f8e9;
-    }
-
-    /* Fullscreen popup overlay */
-    #popupOverlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: white;
-      color: #2e7d32;
-      z-index: 1000;
-      overflow-y: auto;
-      padding: 40px 20px 20px 20px;
-    }
-
-    #popupContent {
-      max-width: 450px;
-      margin: auto;
-      position: relative;
-      text-align: left;
-    }
-
-    #popupContent img {
-      max-width: 100%;
-      border-radius: 4px;
-      margin-bottom: 20px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    #closePopup {
-      position: fixed;
-      top: 15px;
-      right: 20px;
-      font-size: 32px;
-      font-weight: bold;
-      color: #2e7d32;
-      cursor: pointer;
-      z-index: 1100;
-    }
-
-    #backButton {
-      position: fixed;
-      top: 15px;
-      left: 20px;
-      font-size: 14px;
-      font-weight: bold;
-      background-color: #2e7d32;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 14px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
   <header>
-    <h1><img src="2 logo (6).png" width="100" height="100"> </h1>
+    <body>
+  <header>
+    <img src="images/logo.png" class="logo" alt="EK News Logo">
+  </header>
+
+  <input type="text" class="search-bar" placeholder="Search articles...">
+
+  <nav>
+    <a href="#">News</a>
+    <a href="#">Sports</a>
+    <a href="#">Entertainment</a>
+    <a href="#">Politics</a>
+  </nav>
+
+  <div class="container">
+    <h2>News</h2>
+
+    <div class="article">
+      <img src="images/your-article-image.jpg" alt="News image">
+      <h3>Article Title</h3>
+      <p>Small preview of the article...</p>
+    </div>
+    
+    <!-- more articles -->
+  </div>
+</body>
+
     
     
   </header>
